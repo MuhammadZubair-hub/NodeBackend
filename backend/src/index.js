@@ -52,11 +52,3 @@ ConnectDB();
 
 export default app;
 
-
-// app.use(cors());
-
-// var options = {
-//   origin: 'http://localhost:8081',
-//   optionsSuccesStatus: 200
-
-// };
