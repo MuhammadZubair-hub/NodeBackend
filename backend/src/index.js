@@ -46,7 +46,7 @@ const ConnectDB = async () => {
 
 ConnectDB();
 
-
+export default app;
 
 
 // app.use(cors());
