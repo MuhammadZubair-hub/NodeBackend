@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import express, { json } from 'express'
-import jokesRouter from './routes/jokes.js';
-import productRouter from './routes/product.js';
+import jokesRouter from './src/routes/jokes.js';
+import productRouter from './src/routes/product.js';
 import mongoose from 'mongoose';
-import orderRouter from './routes/order.js';
+import orderRouter from './src/routes/order.js';
 // import { ConnectDB } from './db/index.js';
 
 dotenv.config({
