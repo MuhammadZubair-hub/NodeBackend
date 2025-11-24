@@ -19,6 +19,10 @@ app.use('/api', jokesRouter);
 app.use('/api/p', productRouter);
 app.use('/api/o', orderRouter);
 
+app.get('/testing',(req,res)=>{
+  res.send('testing is working');
+})
+
 
 
 // ConnectDB().then(() => {
