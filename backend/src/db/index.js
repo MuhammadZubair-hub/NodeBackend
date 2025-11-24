@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 dotenv.config({
-  path :'./.env'
+  path :'./../.env'
 })
 
 export const ConnectDB = async()=>{
@@ -10,7 +10,7 @@ export const ConnectDB = async()=>{
     console.log('Monog DB conncects yar  || ',process.env.DB_Name)
     
   } catch (error) {
-    console.log('Mongo DB conncects nai ho yar  || ',process.env.DB_Name,MONGO_URI)
+    console.log('Mongo DB conncects nai ho yar  || ');
     
   }
 }
