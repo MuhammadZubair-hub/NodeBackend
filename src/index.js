@@ -1,23 +1,65 @@
 import dotenv from 'dotenv'
 import express, { json } from 'express'
-import jokesRouter from './routes/jokes.js';
-import productRouter from './routes/product.js';
 import mongoose from 'mongoose';
-import orderRouter from './routes/order.js';
-// import { ConnectDB } from './db/index.js';
+import router from './routes/route.js';
+import  YAML  from 'yamljs';
+import path from 'path'
+
+import swaggerUI from 'swagger-ui-express'
+
+import { fileURLToPath } from "url";
+import cors from 'cors'
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const _dirname = path.dirname(__filename);
+
 
 dotenv.config({
   path: './.env'
 })
 
 
-const app = express();
+// Load Swagger YAML file
+const swaggerDocument = YAML.load(path.join(_dirname, './../swagger.yaml'));
 
+const isProduction = process.env.ISPRODUCTION === 'production';
+if (isProduction) {
+  console.log(
+    'in productions'
+  )
+  swaggerDocument.servers = [
+    { 
+      url: "https://nodebackend-production-cbec.up.railway.app",
+      description: "Production Server" 
+    }
+  ];
+} else {
+  swaggerDocument.servers = [
+    { 
+      url: `http://localhost:${process.env.PORT || 3000}/api`,
+      description: "Local Development Server" 
+    }
+  ];
+}
+
+const app = express();
 app.use(express.json());
 
-app.use('/api', jokesRouter);
-app.use('/api/p', productRouter);
-app.use('/api/o', orderRouter);
+app.use(cors());
+
+// Serve Swagger documentation
+app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "User API Documentation",
+}));
+
+
+
+app.use('/api',router);
+
+
 
 app.get('/testing',(req,res)=>{
   res.send('testing is working');

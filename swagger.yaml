@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Node Express API
+  version: 1.0.0
+  description: API documentation for your Express backend
+
+servers:
+  - url: http://localhost:5000/api
+    description: Local server
+
+paths:
+
+  /login:
+    post:
+      summary: Admin login
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login successful
+
+  /createOrder:
+    post:
+      summary: Create a new order
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        "200":
+          description: Order created successfully
+
+  /getperviousorder:
+    get:
+      summary: Get previous orders
+      tags:
+        - Orders
+      responses:
+        "200":
+          description: Returns previous orders
+
+  /getProduct:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: List of products
+
+  /addProduct:
+    post:
+      summary: Add new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Product added
+
+  /deleteProduct:
+    post:
+      summary: Delete product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+      responses:
+        "200":
+          description: Product deleted
+
+  /addJokes:
+    post:
+      summary: Add new joke
+      tags:
+        - Jokes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                joke:
+                  type: string
+      responses:
+        "200":
+          description: Joke added
+
+  /jokes:
+    get:
+      summary: Get all jokes
+      tags:
+        - Jokes
+      responses:
+        "200":
+          description: List of jokes
+
+  /jokes/{id}:
+    get:
+      summary: Get joke by ID
+      tags:
+        - Jokes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Joke data
+
+  /updatejokes:
+    patch:
+      summary: Update joke
+      tags:
+        - Jokes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                joke:
+                  type: string
+      responses:
+        "200":
+          description: Joke updated
+
+  /deleteJokes/{id}:
+    delete:
+      summary: Delete joke by ID
+      tags:
+        - Jokes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Joke deleted
