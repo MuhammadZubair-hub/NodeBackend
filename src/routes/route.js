@@ -13,6 +13,8 @@ import { deleteJokes, getJoke, getJokes, postJokes, updatedJokes } from '../cont
 
 const router = express.Router();
 
+
+
 router.post('/login',adminLogin)
 .post('/createOrder',addOrders)
 .get('/getperviousorder',getPerviousOrder)

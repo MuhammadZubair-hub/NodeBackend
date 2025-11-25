@@ -3,6 +3,7 @@
 import { Ledger } from "../models/ledger_model.js";
 import { Product } from "../models/product_model.js";
 import { StockHistory } from "../models/stockhistory_model.js";
+import { ApiError } from "../utils/ApiError.js";
 
 export const addStock = async (req, res) => {
 
@@ -42,6 +43,7 @@ export const addStock = async (req, res) => {
         res.status(201).json({ success: true, product })
 
 
+
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
@@ -52,15 +54,22 @@ export const getProducts = async (req, res) => {
 
     // const {category} = req.params;
     // console.log('The cartogey ',category, req.params);
-
+try {
+    
     const product = await Product.find();
     console.log('THe exiting products are this ', product);
     res.send(product);
+    
 
+} catch (error) {
+    // res.send(ApiError('invalid',false,[]))
+    res.json(ApiError('sorry cant get this ',false,[]))
+}
     // res.json(product);
 }
 
 export const deleteProducts = async (req, res) => {
+
     try {
         const { id } = req.body
         console.log('the id is : ', id);

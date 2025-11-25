@@ -1,40 +1,48 @@
 import { Admin } from "../models/admin_model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { Apisucess } from "../utils/ApiSuccess.js";
 
 export const adminLogin = async (req, res) => {
     try {
-
-        // const perviosuuser = await Admin.find();
-
-        // console.log('all user are this', perviosuuser);
 
 
         const { username, password } = req.body;
 
         const exitingiuser = await Admin.findOne({
-            $and:[
-                {username : username.toLowerCase()},
-                {password : password.toLowerCase()}
+            $and: [
+                { username: username.toLowerCase() },
+                { password: password.toLowerCase() }
             ]
         });
 
-        if(!exitingiuser){
-            
-            
-            return res.status(400).json({ success: false, message: 'Invalid Credentials' });
-            
+        if (!exitingiuser) {
+
+
+            return res
+                .status(400)
+                .json(
+                    ApiError({
+                        message: "Invalid Credentials",
+                        success: false,
+                        data: []
+                    }));
+
         };
-        console.log('exiting user is ', exitingiuser?.username, exitingiuser?.password);
 
-         
-       
+        //console.log('exiting user is ', exitingiuser?.username, exitingiuser?.password);
 
-        // if (exitingiuser.password !== password) {
-        //     return res.status(400).json({ success: false, message: 'INvalid Credentials' });
-        // }
+        //console.log(exitingiuser.toObject());
+
+        return res
+            .status(200)
+            .json(
+                Apisucess({
+                    message: 'Login Succesfully',
+                    success: true,
+                    data: exitingiuser.username
+                }));
 
 
-
-        return res.status(200).json({ success: true, message: " Login Succesfully" });
     } catch (error) {
         return res.status(400).json({ success: false, message: error.message });
     }

@@ -5,7 +5,7 @@ info:
   description: API documentation for your Express backend
 
 servers:
-  - url: http://localhost:5000/api
+  - url: "https://nodebackend-production-cbec.up.railway.app"
     description: Local server
 
 paths:
