@@ -56,6 +56,9 @@ app.use("/api/doc", swaggerUI.serve, swaggerUI.setup(swaggerDocument, {
 }));
 
 
+app.get('/', (req,res)=>{
+  res.json({Hello: 'Hellos'})
+})
 
 app.use('/api',router);
 
